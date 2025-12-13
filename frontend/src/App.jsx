@@ -134,44 +134,47 @@ const App = () => {
   };
 
   const handleAddSweet = async () => {
-    if (!sweetForm.name || !sweetForm.category || !sweetForm.price || !sweetForm.quantity || !sweetForm.description) {
-      showMessage('Please fill all fields', 'error');
-      return;
+  if (!sweetForm.name || !sweetForm.category || !sweetForm.price || !sweetForm.quantity || !sweetForm.description) {
+    showMessage('Please fill all fields', 'error');
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const response = await fetch(`${API_BASE}/sweets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+      },
+      body: JSON.stringify({
+        name: sweetForm.name,
+        category: sweetForm.category,
+        price: parseFloat(sweetForm.price),
+        quantity: parseInt(sweetForm.quantity),
+        description: sweetForm.description
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      showMessage('Sweet added successfully!', 'success');
+      setSweetForm({ name: '', category: '', price: '', quantity: '', description: '' });
+      setView('shop');
+
+      // 🔥 THIS IS THE FIX
+      await fetchSweets(user.token);
+    } else {
+      showMessage(data.error || 'Failed to add sweet', 'error');
     }
+  } catch (error) {
+    showMessage('Network error. Please try again.', 'error');
+  } finally {
+    setLoading(false);
+  }
+};
 
-    setLoading(true);
-    try {
-      const response = await fetch(`${API_BASE}/sweets`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`
-        },
-        body: JSON.stringify({
-          name: sweetForm.name,
-          category: sweetForm.category,
-          price: parseFloat(sweetForm.price),
-          quantity: parseInt(sweetForm.quantity),
-          description: sweetForm.description
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        showMessage('Sweet added successfully!', 'success');
-        setSweetForm({ name: '', category: '', price: '', quantity: '', description: '' });
-        setView('shop');
-        await fetchSweets();
-      } else {
-        showMessage(data.error || 'Failed to add sweet', 'error');
-      }
-    } catch (error) {
-      showMessage('Network error. Please try again.', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleUpdateSweet = async () => {
     if (!sweetForm.name || !sweetForm.category || !sweetForm.price || !sweetForm.quantity || !sweetForm.description) {
