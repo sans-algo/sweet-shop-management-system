@@ -14,14 +14,15 @@ const app = express();
 /* ✅ CORS – FIXED */
 app.use(cors({
   origin: [
-    'http://localhost:5173',
+    "https://sweet-shop-management-system-ruby.vercel.app"
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
+
 app.use(express.json());
+app.options("*", cors());
 
 /* ✅ ROUTES (VERY IMPORTANT) */
 app.use('/api/auth', authRoutes);
