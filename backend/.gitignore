@@ -9,20 +9,7 @@ node_modules/
 # =========================
 .env
 .env.*
-*.local
-
-# =========================
-# Build output
-# =========================
-dist/
-build/
-dist-ssr/
-
-# =========================
-# Vite / React cache
-# =========================
-.vite/
-.cache/
+**/.env
 
 # =========================
 # Logs
@@ -33,14 +20,20 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # =========================
-# Editor / IDE
+# Build / Output
 # =========================
-.vscode/*
-!.vscode/extensions.json
-.idea/
-*.swp
+dist/
+build/
+
+# =========================
+# Coverage / Cache
+# =========================
+coverage/
+.cache/
+.tmp/
 
 # =========================
 # OS files
@@ -49,6 +42,19 @@ pnpm-debug.log*
 Thumbs.db
 
 # =========================
-# Test / Coverage
+# Editor / IDE
 # =========================
-coverage/
+.vscode/
+.idea/
+*.swp
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# =========================
+# Optional
+# =========================
+.env.local
+.env.development
+.env.production
