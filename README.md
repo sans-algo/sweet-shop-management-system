@@ -4,6 +4,10 @@ A full-stack **Sweet Shop Management System** developed as a technical assignmen
 The project demonstrates backend API development, database integration, role-based access control, testing using **Test-Driven Development (TDD)** principles, and clean coding practices.
 
 ---
+🚀 Live Project Links
+
+  https://sweet-shop-management-system-ruby.vercel.app
+
 
 ## 🎯 Project Objective
 
